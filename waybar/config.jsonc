@@ -1,0 +1,201 @@
+{
+  "layer": "top", "position": "top",
+  "modules-left": [ "hyprland/workspaces" ],
+  "modules-center": [  "custom/date"],
+  "modules-right": ["hyprland/window" ,"tray",  "custom/clipboard", "backlight","pulseaudio" , "network" ],
+ "reload_style_on_change":true,
+
+  "custom/logo": {
+    "format": "",
+    "tooltip": false
+  },
+
+  "hyprland/workspaces": {
+  "format": "{icon}",
+  "format-icons": {
+    "active": "",   // solid circle for active
+    "default": ""   // hollow circle for inactive
+  },
+  "persistent-workspaces": {
+    "*": [1, 2, 3, 4, 5]
+  }
+},
+
+"idle_inhibitor":{
+  "format": "<span font='12'>{icon} </span>",
+  "format-icons": {
+    "activated":"󰈈",
+    "deactivated":"󰈉"
+  }
+},
+
+"custom/weather": {
+  "format": "{}",
+  "return-type": "json",
+  "exec": "~/.config/waybar/scripts/weather.sh",
+  "interval": 10,
+  "on-click": "firefox https://wttr.in"
+},
+
+"custom/clipboard": {
+  "format": "",
+  "on-click": "cliphist list | wofi --show dmenu --width 380 --height 200 --x 1127 --y 6 | cliphist decode | wl-copy",
+  "interval": 86400
+},
+
+
+"custom/date": {
+  "return-type": "json",
+  "exec": "/home/faraz/.config/waybar/date.py",
+  "interval": 1
+},
+
+	
+
+  "bluetooth": {
+  "format-on": "",
+  "format-off": "",
+  "format-disabled": "󰂲",
+  "format-connected": "󰂴",
+  "format-connected-battery": "{device_battery_percentage}% 󰂴",
+  "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+  "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+  "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+  "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+  "on-click": "rofi-bluetooth"
+ }, 
+
+"network": {
+  "format-wifi": "<span font='12'></span>",
+  "format-ethernet": "<span font='12'></span>",
+  "format-disconnected": "<span font='12'></span>",
+  "tooltip-format-wifi": "{essid} ({signalStrength}%)  | {ipaddr}",
+  "tooltip-format-ethernet": "{ifname}  | {ipaddr}",
+  "on-click": "networkmanager_dmenu"
+},
+
+"battery": {
+    "interval":8,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+"format": "<span font='10'>{icon} ",
+        "format-charging": " 󰂄 ",
+        "format-alt": "{capacity} {icon}",
+  
+            "format-icons": [
+          "󰁻",
+          "󰁼",
+          "󰁾",
+          "󰂀",
+          "󰂂",
+          "󰁹"
+        ]
+    },
+"backlight": {
+  "device": "intel_backlight",
+  "format": "<span font='12'>{icon}</span>",
+  "format-icons": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "on-scroll-down": "light -A 10",
+  "on-scroll-up": "light -U 10",
+  "smooth-scrolling-threshold": 1
+  },
+
+ "disk": {
+    "interval": 30,
+    "format": "  {percentage_used}%",
+    "path": "/"
+  },
+
+  "custom/colorpicker": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": "once",
+    "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+    "on-click": "sleep 1 && ~/.config/waybar/scripts/colorpicker.sh",
+    "signal": 1
+  },
+
+  "cpu": {
+      "interval": 2,
+      "format": " {usage}%",
+      "min-length": 6,
+      "max-length": 6,
+      "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+ },
+
+"memory": {
+  "format": " {percentage}%"
+},
+
+"hyprland/window": {
+  "format": "{{ {class} }}",
+  "tooltip-format": "{class}",
+  "min-length":15,
+  "max-length":76,
+  "rewrite":{
+    "com.obsproject.Studio": "{ obs }"
+  }
+},
+
+"temperature": {
+  "format": " {temperatureC}°C",            
+  "format-critical": " {temperatureC}°C",
+  "interval": 1,
+  "critical-threshold": 80,
+  "on-click": "foot btop"
+ },
+
+"pulseaudio": {
+  "format": "<span font='12'>{icon}</span>",
+  "format-muted": "<span font='12'></span>",
+  "format-icons": {
+    "default": [""]
+  },
+  "justify": "center",
+  "on-click": "pavucontrol",
+  "on-click-right": "amixer sset Master toggle",
+  "tooltip-format": "vol:{volume}"
+},
+
+"jack": {
+    "format": "{} 󱎔",
+    "format-xrun": "{xruns} xruns",
+    "format-disconnected": "DSP off",
+    "realtime": true
+},
+
+"tray": {
+    "icon-size": 14,
+    "spacing": 10
+},
+
+"upower": {
+    "show-icon": false,
+    "hide-if-empty": true,
+    "tooltip": true,
+    "tooltip-spacing": 20
+},
+
+  "custom/powerDraw": {
+    "format": "{}",
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/powerdraw.sh",
+    "return-type": "json"
+  }
+
+}
+
