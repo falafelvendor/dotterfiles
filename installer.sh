@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Pacman Packages:
-PACKAGES="wofi waybar kitty noto-fonts ttf-bitstream-vera git base-devel hyprland hyprpaper hyprcursor hyprsunset hyprpolkitagent xdg-desktop-portal-hyprland pipewire pipewire-pulse pipewire-alsa wireplumber pipewire-jack "
+PACKAGES="wofi waybar kitty noto-fonts ttf-bitstream-vera git base-devel cliphist hyprland hyprpaper hyprcursor hyprsunset hyprpolkitagent xdg-desktop-portal-hyprland pipewire pipewire-pulse pipewire-alsa wireplumber pipewire-jack "
 
 #Yay Packages:
 Yay_PACKAGES="ttf-nerd-fonts-symbols python-hijri-converter rose-pine-cursor"
