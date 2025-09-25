@@ -1,2 +1,2 @@
 # dotterfiles
-mewo
+run the installer.
