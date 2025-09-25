@@ -7,7 +7,7 @@ Yay_PACKAGES="ttf-nerd-fonts-symbols python-hijri-converter rose-pine-cursor"
 sudo pacman -Sy  $PACKAGES && echo "Base sucessfully installed, with packages: $PACKAGES"
 
 read -p "Cloning git repo, what ya say? (y/n): " gitans
-if [[ "$gitans" =~ ^[Yy]$ ]] then
+if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	echo "cloning repo"
 	git clone https://github.com/AkiraRyoK/dotterfiles.git && "repo cloned"
 else
@@ -15,7 +15,7 @@ else
 fi 
 
 read -p "Install yay? (y/n): " yayinstallans
-if [[ "$yayinstallans" =~ ^[Yy]$ ]] then
+if [[ "$yayinstallans" =~ ^[Yy]$ ]]; then
 	git clone https://aur.archlinux.org/yay.git && echo "cloned yay git"
 	cd yay && echo "cd into yay repo"
 	echo "making yay package"
