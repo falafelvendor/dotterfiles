@@ -29,17 +29,25 @@ if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	cd .dots/
 	chmod +x dotfinstall.sh
 else
-	cd $HOME
 	echo "git repo not cloned"
 fi 
+
+#Copy .bashrc?
+read -p "replace .bashrc? (Y/N): " bashrcans
+if [[ "$bashecans" =~ ^[Y]$ ]]; then
+	cp $HOME/.bashrc $HOME/.bashrc.bak
+	cd ..
+	cp .bashrc $HOME/.bashrc
+	echo "your previous bashrc was saved as $HOME/.bashrc.bak"
+else
+	echo "bashrc was not replaced"
+fi
 
 
 
 #Copy Dotfiles
 read -p "copy dotfiles? (y/n): " copyans
 if [[ "$copyans" =~ ^[Yy]$ ]]; then
-	cd dotterfiles
-	chmod +x dotfinstall.sh
 	cd .dots
 	./dotfinstall.sh
 else
@@ -71,7 +79,7 @@ fi
 
 
 #Restart system?
-read -p "Restart System? (Y/N): " restartanswer
+read -p "The script has finished installing everything, Restart System? (Y/N): " restartanswer
 if [[ "$restartanswer" =~ ^[Y]$ ]]; then
 	reboot
 else
