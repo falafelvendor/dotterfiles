@@ -26,9 +26,10 @@ if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	mv neofetch/ .dots/
 	mv wofi/ .dots/
 	mv dotfinstall.sh .dots/
+	cd .dots/
 	chmod +x dotfinstall.sh
 else
-
+	cd $HOME
 	echo "git repo not cloned"
 fi 
 
@@ -42,6 +43,7 @@ if [[ "$copyans" =~ ^[Yy]$ ]]; then
 	cd .dots
 	./dotfinstall.sh
 else
+	cd $HOME
 	echo "config files not copied"
 fi
 
@@ -49,11 +51,13 @@ fi
 #Install Yay
 read -p "Install yay? (y/n): " yayinstallans
 if [[ "$yayinstallans" =~ ^[Yy]$ ]]; then
+	cd $HOME/
 	git clone https://aur.archlinux.org/yay.git && echo 'cloned yay git'
 	cd yay
 	echo "making yay package"
 	makepkg -si && echo "yay sucessfully installed!"
-
+else
+	echo "Yay not installed"
 
 #Install Yay packages
 read -p "Do you want to install yay packages? $Yay_PACKAGES (y/n): " answer
@@ -61,8 +65,10 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Installing yay packages."
     yay -S $Yay_PACKAGES && echo "Yay packages installed."
 else
+    cd $HOME
     echo "Skipping yay packages installation."
 fi
+
 
 #Restart system?
 read -p "Restart System? (Y/N): " restartanswer
