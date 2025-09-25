@@ -7,12 +7,12 @@
 }
 
 window#waybar {
-  background: rgba(0, 0, 0, 1);
+  background: rgba(0, 0, 0, 0.14);
 }
 
 tooltip {
   border-radius: 15px;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 1);
   color: @active;
 }
 
@@ -93,7 +93,7 @@ tooltip label {
 } 
 
 #workspaces button:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.0);
 }
 
 #pulseaudio {
@@ -114,7 +114,7 @@ menu,
 .popup window,
 menuitem,
 .menuitem {
-  background-color: rgba(20, 20, 20, 0.97);
+  background-color: rgba(20, 20, 20, 0.9);
   color: #d4d4d4;
   border-radius: 10px;
   padding: 6px 10px;

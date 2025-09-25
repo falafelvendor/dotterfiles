@@ -1,8 +1,8 @@
 {
   "layer": "top", "position": "top",
-  "modules-left": [ "hyprland/workspaces" ],
+  "modules-left": ["custom/logo", "hyprland/workspaces" ],
   "modules-center": [  "custom/date"],
-  "modules-right": ["hyprland/window" ,"tray",  "custom/clipboard", "backlight","pulseaudio" , "network" ],
+  "modules-right": [ "hyprland/window" ,"tray",  "custom/clipboard", "backlight","pulseaudio" , "network" ],
  "reload_style_on_change":true,
 
   "custom/logo": {
@@ -40,7 +40,8 @@
 "custom/clipboard": {
   "format": "",
   "on-click": "cliphist list | wofi --show dmenu --width 380 --height 200 --x 1127 --y 6 | cliphist decode | wl-copy",
-  "interval": 86400
+  "interval": 86400,
+  "tool-tip": false
 },
 
 
@@ -109,9 +110,11 @@
     "",
     ""
   ],
-  "on-scroll-down": "light -A 10",
-  "on-scroll-up": "light -U 10",
-  "smooth-scrolling-threshold": 1
+  "on-scroll-down": "brightnessctl -A 10",
+  "on-scroll-up": "brightnessctl -U 10",
+  "smooth-scrolling-threshold": 1,
+  "tool-tip": false
+
   },
 
  "disk": {
