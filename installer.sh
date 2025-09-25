@@ -18,6 +18,13 @@ if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	echo "cloning repo"
 	git clone https://github.com/falafelvendor/dotterfiles && "repo cloned"
 	cd dotterfiles
+	mkdir .dots
+	mv -r hypr/ .dots/
+	mv -r waybar/ .dots/
+	mv -r kitty/ .dots/
+	mv -r fontconfig/ .dots/
+	mv -r neofetch/ .dots/
+	mv -r wofi/ .dots/
 	chmod +x dotfinstall.sh
 else
 
@@ -29,6 +36,9 @@ fi
 #Copy Dotfiles
 read -p "copy dotfiles? (y/n): " copyans
 if [[ "$copyans" =~ ^[Yy]$ ]]; then
+	cd dotterfiles
+	chmod +x dotfinstall.sh
+	cd .dots
 	./dotfinstall.sh
 else
 	echo "config files not copied"
