@@ -20,6 +20,9 @@ if [[ "$yayinstallans" =~ ^[Yy]$ ]] then
 	cd yay && echo "cd into yay repo"
 	echo "making yay package"
 	makepkg -si && echo "yay sucessfully installed!"
+else
+	echo "yay not installed"
+fi
 
 
 read -p "Do you want to install yay packages? $Yay_PACKAGES (y/n): " answer
