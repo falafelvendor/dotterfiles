@@ -16,15 +16,16 @@ sudo pacman -Sy  $PACKAGES && echo "Base sucessfully installed, with packages: $
 read -p "Cloning git repo, what ya say? (y/n): " gitans
 if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	echo "cloning repo"
-	git clone https://github.com/falafelvendor/dotterfiles && "repo cloned"
+	git clone https://github.com/falafelvendor/dotterfiles && echo "repo cloned"
 	cd dotterfiles
 	mkdir .dots
-	mv -r hypr/ .dots/
-	mv -r waybar/ .dots/
-	mv -r kitty/ .dots/
-	mv -r fontconfig/ .dots/
-	mv -r neofetch/ .dots/
-	mv -r wofi/ .dots/
+	mv hypr/ .dots/
+	mv waybar/ .dots/
+	mv kitty/ .dots/
+	mv fontconfig/ .dots/
+	mv neofetch/ .dots/
+	mv wofi/ .dots/
+	mv dotfinstall.sh .dots/
 	chmod +x dotfinstall.sh
 else
 
