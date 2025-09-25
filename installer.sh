@@ -16,7 +16,7 @@ sudo pacman -Sy  $PACKAGES && echo "Base sucessfully installed, with packages: $
 read -p "Cloning git repo, what ya say? (y/n): " gitans
 if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	echo "cloning repo"
-	git clone https://github.com/AkiraRyoK/dotterfiles.git && "repo cloned"
+	git clone https://github.com/falafelvendor/dotterfiles && "repo cloned"
 	cd dotterfiles
 	chmod +x dotfinstall.sh
 else
