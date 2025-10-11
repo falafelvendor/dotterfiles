@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Pacman Packages:
-PACKAGES="wofi waybar kitty noto-fonts ttf-bitstream-vera git base-devel cliphist hyprland hyprpaper hyprcursor hyprsunset hyprpolkitagent xdg-desktop-portal-hyprland pipewire pipewire-pulse pipewire-alsa wireplumber pipewire-jack "
+PACKAGES="hyprlock wofi waybar kitty noto-fonts ttf-bitstream-vera git base-devel cliphist hyprland hyprpaper hyprcursor hyprsunset hyprpolkitagent xdg-desktop-portal-hyprland pipewire pipewire-pulse pipewire-alsa wireplumber pipewire-jack "
 
 #Yay Packages:
 Yay_PACKAGES="ttf-nerd-fonts-symbols python-hijri-converter rose-pine-cursor"
@@ -34,8 +34,8 @@ fi
 
 #Copy .bashrc?
 read -p "replace .bashrc? (Y/N): " bashrcans
-if [[ "$bashecans" =~ ^[Y]$ ]]; then
-	cp $HOME/.bashrc $HOME/.bashrc.bak
+if [[ "$bashrcans" =~ ^[Y]$ ]]; then
+	cp "$HOME/.bashrc" "$HOME/.bashrc.bak"
 	cd ..
 	cp .bashrc $HOME/.bashrc
 	echo "your previous bashrc was saved as $HOME/.bashrc.bak"
@@ -66,7 +66,7 @@ if [[ "$yayinstallans" =~ ^[Yy]$ ]]; then
 	makepkg -si && echo "yay sucessfully installed!"
 else
 	echo "Yay not installed"
-
+fi
 #Install Yay packages
 read -p "Do you want to install yay packages? $Yay_PACKAGES (y/n): " answer
 if [[ "$answer" =~ ^[Yy]$ ]]; then
