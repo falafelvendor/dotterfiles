@@ -13,8 +13,6 @@ alias nv='nvim'
 alias snv='sudo nvim'
 alias umthdd='sudo umount /mnt/HDD'
 alias mst='ollama run mistral:7b'
-alias solar='ollama run sushruth/solar-uncensored:latest'
-alias daredevil='ollama run closex/neuraldaredevil-8b-abliterated:Q6_K'
 PS1='[\u@\h \W]\$ '
 
 
