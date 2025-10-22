@@ -45,10 +45,10 @@ else
 	cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
 	cp .zshrc $HOME/.zshrc
 	echo "your previous zshrc was saved to $HOME/.zshrc.bak"
-	fi
 
-else
-	echo "bashrc/zshrc was not replaced"
+	else
+		echo "bashrc/zshrc was not replaced"
+	fi
 fi
 
 
