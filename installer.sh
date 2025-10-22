@@ -19,12 +19,12 @@ if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	git clone https://github.com/falafelvendor/dotterfiles && echo "repo cloned"
 	cd dotterfiles
 	mkdir .dots
-	mv hypr/ .dots/
-	mv waybar/ .dots/
-	mv kitty/ .dots/
-	mv fontconfig/ .dots/
-	mv neofetch/ .dots/
-	mv wofi/ .dots/
+	mv dotfiles/hypr/ .dots/
+	mv dotfiles/waybar/ .dots/
+	mv dotfiles/kitty/ .dots/
+	mv dotfiles/fontconfig/ .dots/
+	mv dotfiles/neofetch/ .dots/
+	mv dotfiles/wofi/ .dots/
 	mv dotfinstall.sh .dots/
 	cd .dots/
 	chmod +x dotfinstall.sh
@@ -40,7 +40,14 @@ if [[ "$bashrcans" =~ ^[Y]$ ]]; then
 	cp .bashrc $HOME/.bashrc
 	echo "your previous bashrc was saved as $HOME/.bashrc.bak"
 else
-	echo "bashrc was not replaced"
+	read -p "replace .zshrc? (Y/n) " zshrcans
+	if [[ "$zshrcans" =~ ^[Y]$ ]]; then
+	cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
+	cp .zshrc $HOME/.zshrc
+	echo "your previous zshrc was saved to $HOME/.zshrc.bak"
+
+else
+	echo "bashrc/zshrc was not replaced"
 fi
 
 
