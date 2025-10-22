@@ -56,6 +56,7 @@ fi
 #Copy Dotfiles
 read -p "copy dotfiles? (y/n): " copyans
 if [[ "$copyans" =~ ^[Yy]$ ]]; then
+	mkdir .dots
 	cd .dots
 	./dotfinstall.sh
 else
