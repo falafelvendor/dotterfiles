@@ -36,7 +36,6 @@ fi
 read -p "replace .bashrc? (Y/N): " bashrcans
 if [[ "$bashrcans" =~ ^[Y]$ ]]; then
 	cp "$HOME/.bashrc" "$HOME/.bashrc.bak"
-	cd ..
 	cp .bashrc $HOME/.bashrc
 	echo "your previous bashrc was saved as $HOME/.bashrc.bak"
 else
@@ -56,8 +55,6 @@ fi
 #Copy Dotfiles
 read -p "copy dotfiles? (y/n): " copyans
 if [[ "$copyans" =~ ^[Yy]$ ]]; then
-	mkdir .dots
-	cd .dots
 	./dotfinstall.sh
 else
 	cd $HOME
