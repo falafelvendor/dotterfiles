@@ -25,6 +25,7 @@ if [[ "$gitans" =~ ^[Yy]$ ]]; then
 	mv dotfiles/fontconfig/ .dots/
 	mv dotfiles/neofetch/ .dots/
 	mv dotfiles/wofi/ .dots/
+	mv dotfiles/NetworkManager/ .dots/
 	mv dotfinstall.sh .dots/
 	cd .dots/
 	chmod +x dotfinstall.sh
