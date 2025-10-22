@@ -45,6 +45,7 @@ else
 	cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
 	cp .zshrc $HOME/.zshrc
 	echo "your previous zshrc was saved to $HOME/.zshrc.bak"
+	fi
 
 else
 	echo "bashrc/zshrc was not replaced"
@@ -90,5 +91,5 @@ read -p "The script has finished installing everything, Restart System? (Y/N): "
 if [[ "$restartanswer" =~ ^[Y]$ ]]; then
 	reboot
 else
-	echo "Script has finished installing everthing."
+    echo "Script has finished installing everthing."
 fi
