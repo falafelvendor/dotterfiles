@@ -45,20 +45,26 @@ zle -N down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
+#LM studio
+alias ai="/home/faraz/Desktop/LMStudio.AppImage"
 # yay
 alias yeet="yay -Rn"
 alias ls='ls -h --color=auto'
 alias nv="nvim"
 
 alias snv="sudo nvim"
-alias HDD="sudo mount /dev/sda1 /mnt/HDD"
-alias Hdd='cd /mnt/HDD'
+alias ssd="cd /mnt/SSD"
+alias hdd='cd /mnt/HDD'
 alias mnt="sudo mount"
 alias ani="ani-cli"
-alias talker="ollama run llama3.2:3b"
-alias coder="ollama run qwen3.5:4b"
+
 neofetch
 upower -b | grep "percentage"
 alias rbx="sudo wg-quick down aloo && flatpak run org.vinegarhq.Sober"
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/faraz/.lmstudio/bin"
+# End of LM Studio CLI section
+

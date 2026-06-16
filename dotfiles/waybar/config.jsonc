@@ -1,4 +1,5 @@
 {
+  "gtk-layer-shell": true,
   "layer": "top", "position": "top",
   "modules-left": ["custom/logo", "hyprland/workspaces" ],
   "modules-center": [  "custom/date"],
@@ -16,6 +17,7 @@
     "active": "",   // solid circle for active
     "default": ""   // hollow circle for inactive
   },
+"on-click": "~/.config/waybar/switch-workspace.sh {name}", 
   "persistent-workspaces": {
     "*": [1, 2, 3, 4, 5]
   }
