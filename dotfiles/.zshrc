@@ -1,3 +1,5 @@
+export PATH="/usr/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
 # function to show current git branch and status in the prompt
 git_info() {
   if git rev-parse --is-inside-work-tree &>/dev/null; then
@@ -52,6 +54,9 @@ alias yeet="yay -Rn"
 alias ls='ls -h --color=auto'
 alias nv="nvim"
 
+
+alias dotter="/home/faraz/dotterfiles/backup.sh"
+alias cmt="git commit -a && git push"
 alias snv="sudo nvim"
 alias ssd="cd /mnt/SSD"
 alias hdd='cd /mnt/HDD'
