@@ -53,7 +53,7 @@ alias ai="/home/faraz/Desktop/LMStudio.AppImage"
 alias yeet="yay -Rn"
 alias ls='ls -h --color=auto'
 alias nv="nvim"
-
+alias start="start-hyprland"
 
 alias dotter="/home/faraz/dotterfiles/backup.sh"
 alias cmt="git commit -a && git push"
@@ -65,7 +65,8 @@ alias ani="ani-cli"
 
 neofetch
 upower -b | grep "percentage"
-alias rbx="sudo wg-quick down aloo && flatpak run org.vinegarhq.Sober"
+alias vpnu="sudo wg-quick up aloo"
+alias vpnd="sudo wg-quick down aloo"
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
