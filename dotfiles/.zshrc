@@ -49,6 +49,7 @@ bindkey '^[[B' down-line-or-beginning-search
 
 #LM studio
 alias ai="/home/faraz/Desktop/LMStudio.AppImage"
+alias win="/home/faraz/Applications/Winboat.AppImage"
 # yay
 alias yeet="yay -Rn"
 alias ls='ls -h --color=auto'
