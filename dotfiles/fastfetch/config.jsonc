@@ -4,7 +4,8 @@
 		"source": "/home/faraz/.config/fastfetch/arch.txt",
 		"padding": {
 			"top": 1,
-			"left": 2
+			"left": 2,
+			"bottom":1
 		}
 	},
 	"display": {
@@ -87,7 +88,9 @@
 			"type": "uptime",
 			"key": "╰─󰅐 ",
 			"keyColor": "cyan"
-		}
+		},
+		"break"
+
 	]
 
 }
