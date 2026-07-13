@@ -1,25 +1,27 @@
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
   font-size: 14px;
-  color: #e0e0e0;
+  color: #d4d4d4;
+  box-sizing: border-box;
 }
 
 window {
-  background-color: rgba(20, 20, 24, 0.9);
-  border-radius: 16px;
-  padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background-color: rgba(26, 27, 30, 0.94);
+  border-radius: 20px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
 }
 
 #input {
-  margin: 4px 6px 10px 6px;
-  padding: 8px 14px;
+  margin: 4px 4px 12px 4px;
+  padding: 10px 16px;
   border: none;
-  background-color: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f2f2f2;
   border-radius: 12px;
   font-size: 15px;
+  letter-spacing: 0.2px;
 }
 
 #input image {
@@ -27,20 +29,25 @@ window {
 }
 
 #inner-box {
-  margin: 0 4px;
+  margin: 0 2px;
+  padding: 0;
 }
 
 #scroll {
   margin: 0;
+  padding: 0;
 }
 
 #entry {
-  padding: 8px 10px;
-  margin: 2px 4px;
+  padding: 9px 12px;
+  margin: 3px 4px;
   border-radius: 10px;
   background-color: transparent;
+  border: 1px solid transparent;
   min-width: 260px;
   max-width: 260px;
+  min-height: 35px;
+  max-height: 35px;
 }
 
 #entry:hover {
@@ -48,23 +55,26 @@ window {
 }
 
 #entry:selected {
-  background-color: rgba(0, 108, 134, 0.22);
+  background-color: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(94, 189, 179, 0.35);
   border-radius: 10px;
   color: #ffffff;
 }
 
 #entry image {
   margin-right: 12px;
-  -gtk-icon-size: 32px;
-  min-width: 32px;
-  min-height: 32px;
+  -gtk-icon-size: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 30px;
+  max-height: 30px;
 }
 
 #text {
-  color: #e0e0e0;
+  color: #c8c8c8;
+  font-size: 13px;
 }
 
 #entry:selected #text {
   color: #ffffff;
-  text-shadow: 0 0 6px rgba(0, 198, 207, 0.5);
 }
