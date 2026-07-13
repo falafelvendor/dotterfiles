@@ -26,6 +26,7 @@ backup_config fontconfig
 backup_config wofi
 backup_config mako
 backup_config neofetch
+backup_config fastfetch
 [ -f "$HOME/.zshrc" ] && cp "$HOME/.zshrc" "$DEST/.zshrc" && echo ">>> Backed up .zshrc"
 
 # NetworkManager is a file not a dir

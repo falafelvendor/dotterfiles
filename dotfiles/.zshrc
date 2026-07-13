@@ -64,7 +64,7 @@ alias hdd='cd /mnt/HDD'
 alias mnt="sudo mount"
 alias ani="ani-cli"
 
-neofetch
+fastfetch
 upower -b | grep "percentage"
 alias vpnu="sudo wg-quick up aloo"
 alias vpnd="sudo wg-quick down aloo"
