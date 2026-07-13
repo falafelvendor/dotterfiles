@@ -65,7 +65,6 @@ alias mnt="sudo mount"
 alias ani="ani-cli"
 
 fastfetch
-upower -b | grep "percentage"
 alias vpnu="sudo wg-quick up aloo"
 alias vpnd="sudo wg-quick down aloo"
 export ANDROID_HOME=$HOME/Android/Sdk

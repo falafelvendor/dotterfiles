@@ -18,6 +18,7 @@ copy_config() {
     fi
 }
 
+copy_config fastfetch
 copy_config hypr
 copy_config fontconfig
 copy_config kitty

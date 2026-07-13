@@ -3,36 +3,38 @@
 	"logo": {
 		"source": "/home/faraz/.config/fastfetch/arch.txt",
 		"padding": {
-			"top": 0,
-			"left": 3
+			"top": 1,
+			"left": 2
 		}
 	},
 	"display": {
-		"separator": "  "
+		"separator": ""
 	},
+
 	"modules": [
+		"break",
 		{
 			"type": "os",
+			"padding": { "top": 1 },
 			"key": "╭─ ",
-			"keyColor": "blue"
+			"keyColor": "cyan"
 		},
-		//"break",
 		{
 			"type": "kernel",
-			"key": "├─",
-			"keyColor": "blue"
+			"key": "├─ ",
+			"keyColor": "cyan"
 		},
 		{
 			"type": "title",
-			"key": "├─",
-			"keyColor": "blue"
+			"key": "├─ ",
+			"keyColor": "cyan"
 		},
 
 		// One entry for every partition
 		//{
 	  	 //	"type": "disk",
 		 //	"key": "├─",
-		 //	"keyColor": "blue"
+		 //	"keyColor": "cyan"
 		//},
 		// {
 		// 	"type": "brightness",
@@ -41,8 +43,8 @@
 		// },
 		{
 			"type": "memory",
-		 	"key": "├─",
-		 	"keyColor": "blue"
+		 	"key": "├─ ",
+		 	"keyColor": "cyan"
 		},
 
 		// {
@@ -56,7 +58,7 @@
 		// 	"keyColor": "green"
 		// },
 		// {
-		// 	"type": "bluetooth",
+		// 	"type": "cyantooth",
 		// 	"key": "├─",
 		// 	"keyColor": "green"
 		// },
@@ -72,19 +74,19 @@
 		// },
 		{
 			"type": "swap",
-			"key": "├─󰓡",
-			"keyColor": "blue"
+			"key": "├─󰓡 ",
+			"keyColor": "cyan"
 		},
 
 		{
 		 	"type": "battery",
-		 	"key": "├─",
-		 	"keyColor": "blue"
+		 	"key": "├─ ",
+		 	"keyColor": "cyan"
 		},
 		{
 			"type": "uptime",
-			"key": "╰─󰅐",
-			"keyColor": "blue"
+			"key": "╰─󰅐 ",
+			"keyColor": "cyan"
 		}
 	]
 
