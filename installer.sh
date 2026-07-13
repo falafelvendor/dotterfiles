@@ -8,7 +8,7 @@ DOTFILES="$BASE_DIR/dotfiles"
 PACMAN_PACKAGES="hyprlock hypridle wofi waybar kitty mako noto-fonts ttf-bitstream-vera \
     git base-devel cliphist hyprland hyprpaper hyprcursor hyprsunset hyprpolkitagent \
     xdg-desktop-portal-hyprland pipewire pipewire-pulse pipewire-alsa wireplumber \
-    pipewire-jack npm wireguard-tools"
+    pipewire-jack npm wireguard-tools zsh"
 
 YAY_PACKAGES="ttf-nerd-fonts-symbols python-hijri-converter rose-pine-hyprcursor \
     mov-cli ani-cli python-mov-cli-youtube"
@@ -87,6 +87,8 @@ if [[ "$wgans" =~ ^[Yy]$ ]]; then
     fi
 fi
 
+
+chsh -s /usr/bin/zsh
 # ── Done ──────────────────────────────────────────────────────────────────────
 read -rp "All done! Reboot now? (y/n): " rebootans
 if [[ "$rebootans" =~ ^[Yy]$ ]]; then
