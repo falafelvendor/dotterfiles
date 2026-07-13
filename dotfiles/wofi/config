@@ -1,5 +1,5 @@
 show=drun
-width=600
+width=700
 height=420
 location=center
 show_all=false
@@ -10,5 +10,7 @@ gtk_dark=true
 insensitive=true
 no_actions=true
 hide_scroll=true
-dynamic_lines=true
+dynamic_lines=false
+lines=7
 term=kitty
+columns=2

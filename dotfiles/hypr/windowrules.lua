@@ -29,6 +29,4 @@ hl.window_rule({ match = { title = "Save File" }, size = {1000, 500} })
 hl.window_rule({ match = { title = "Volume Control" }, size = {1000, 500} })
 hl.window_rule({ match = { title = "kitty" }, size = {1500, 800} })
 hl.window_rule({ match = { title = "mpv" }, size = {1000, 650} })
-
-
 hl.window_rule({ match = { class = "mpv" }, idle_inhibit = "focus" })

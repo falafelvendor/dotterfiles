@@ -50,7 +50,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("[workspace 2 silent] firefox")
     hl.exec_cmd("sh -c 'sleep 1 && hyprsunset'")
-    hl.exec_cmd("[workspace 4 silent] /home/faraz/Applications/Winboat.AppImage")
+    hl.exec_cmd("[workspace 5 silent] /home/faraz/Applications/Winboat.AppImage")
     hl.exec_cmd(terminal)
 end)
 
