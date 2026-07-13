@@ -31,6 +31,7 @@ window {
 #inner-box {
   margin: 0 2px;
   padding: 0;
+  min-width: 0;
 }
 
 #scroll {
@@ -38,6 +39,16 @@ window {
   padding: 0;
 }
 
+scrollbar {
+  min-width: 0px;
+  min-height: 0px;
+  opacity: 0;
+}
+
+scrollbar slider {
+  min-width: 0px;
+  min-height: 0px;
+}
 #entry {
   padding: 9px 12px;
   margin: 3px 4px;
