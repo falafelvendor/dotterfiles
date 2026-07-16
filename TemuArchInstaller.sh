@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# arch-install.sh
+# TemuArchInstaller.sh
 # Self-relaunching Arch Linux install script.
 # Run from the Arch ISO live environment as root:
-#   ./arch-install.sh
+#   ./TemuArchInstaller.sh
 #
 # The script partitions/formats/mounts the disk, pacstraps the base system,
 # copies itself into the new install, then arch-chroots in and re-runs
@@ -48,9 +48,9 @@ CHROOT_FLAG="${1:-}"
 # Literal defaults, used only to detect whether the config block above
 # was left untouched. Keep these in sync with the CONFIG section.
 DEFAULT_DISK="/dev/sda"
-DEFAULT_HOSTNAME="archbox"
-DEFAULT_USERNAME="user"
-DEFAULT_TIMEZONE="America/New_York"
+DEFAULT_HOSTNAME="archington"
+DEFAULT_USERNAME="archer"
+DEFAULT_TIMEZONE="Asia/Kolkata"
 DEFAULT_LOCALE="en_US.UTF-8"
 DEFAULT_BOOT_SIZE="1024M"
 DEFAULT_SWAP_SIZE="16G"
@@ -59,7 +59,7 @@ DEFAULT_INSTALL_NVIDIA="false"
 
 # Config gets persisted here so the chroot re-exec sees the same values
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_FILE="${SCRIPT_DIR}/arch-install.conf"
+CONFIG_FILE="${SCRIPT_DIR}/TemuInstaller.conf"
 
 # If a config file already exists (we're in the chroot re-exec, or a
 # previous run saved one), load it and skip the interactive prompt.
@@ -313,6 +313,11 @@ run_live_phase() {
     mount "${BOOT_PART}" /mnt/boot
     mount "${HOME_PART}" /mnt/home
     lsblk "${DISK}"
+
+    log "Refreshing pacman keyring (prevents PGP signature errors during pacstrap)"
+    pacman-key --init
+    pacman-key --populate archlinux
+    pacman -Sy --noconfirm archlinux-keyring
 
     log "Ranking mirrors (this can take a few minutes)"
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
