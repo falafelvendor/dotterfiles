@@ -17,9 +17,9 @@ set -euo pipefail
 # CONFIG — edit these before running
 # ============================================================
 DISK="/dev/sda"          # target disk, e.g. /dev/sda or /dev/nvme0n1 — THIS WILL BE WIPED
-HOSTNAME="archbox"
-USERNAME="user"
-TIMEZONE="America/New_York"   # must match a path under /usr/share/zoneinfo
+HOSTNAME="archington"
+USERNAME="archer"
+TIMEZONE="Asia/Kolkata"   # must match a path under /usr/share/zoneinfo
 LOCALE="en_US.UTF-8"
 
 BOOT_SIZE="1024M"
@@ -188,7 +188,7 @@ run_chroot_phase() {
 EOF
 
     log "Installing base packages"
-    pacman -Sy --noconfirm sudo nvim zsh networkmanager pacman-contrib
+    pacman -Sy --noconfirm sudo neovim zsh networkmanager pacman-contrib
 
     log "Enabling multilib"
     sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
