@@ -331,13 +331,13 @@ run_live_phase() {
     genfstab -U /mnt >> /mnt/etc/fstab
 
     log "Copying installer into new system and chrooting in"
-    cp "$0" /mnt/root/arch-install.sh
-    chmod +x /mnt/root/arch-install.sh
-    cp "$CONFIG_FILE" /mnt/root/arch-install.conf
-    arch-chroot /mnt /root/arch-install.sh --chroot
+    cp "$0" /mnt/root/TemuArchInstaller.sh
+    chmod +x /mnt/root/TemuArchInstaller.sh
+    cp "$CONFIG_FILE" /mnt/root/TemuInstaller.conf
+    arch-chroot /mnt /root/TemuArchInstaller.sh --chroot
 
     log "Cleaning up installer script from installed system"
-    rm -f /mnt/root/arch-install.sh /mnt/root/arch-install.conf
+    rm -f /mnt/root/TemuArchInstaller.sh /mnt/root/TemuInstaller.conf
 
     log "Unmounting"
     umount -R /mnt
