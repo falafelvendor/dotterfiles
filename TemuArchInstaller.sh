@@ -335,9 +335,6 @@ run_live_phase() {
     log "Pacstrapping base system"
     pacstrap -K /mnt base linux linux-firmware linux-headers base-devel
 
-    log "Pacstrapping base system"
-    pacstrap -K /mnt base linux linux-firmware linux-headers base-devel
-
     log "Carrying mirrorlist + pacman.conf tweaks into the new install"
     cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
     sed -i 's/^#ParallelDownloads/ParallelDownloads/' /mnt/etc/pacman.conf

@@ -15,7 +15,7 @@ YAY_PACKAGES="ttf-nerd-fonts-symbols python-hijri-converter rose-pine-hyprcursor
 
 # ── Pacman packages ───────────────────────────────────────────────────────────
 echo ">>> Full System Upgrade and Installing pacman packages..."
-sudo pacman -Syu $PACMAN_PACKAGES && echo ">>> Base packages installed."
+sudo pacman -Syu ${PACMAN_PACKAGES[@]} && echo ">>> Base packages installed."
 
 # ── Clone repo ────────────────────────────────────────────────────────────────
 read -rp "Clone dotterfiles repo? (y/n): " gitans
@@ -60,7 +60,7 @@ fi
 
 read -rp "Install AUR packages? (y/n): " yaypackans
 if [[ "$yaypackans" =~ ^[Yy]$ ]]; then
-    yay -S $YAY_PACKAGES
+    yay -S ${YAY_PACKAGES[@]}
 fi
 
 # ── Wireguard configs ─────────────────────────────────────────────────────────
