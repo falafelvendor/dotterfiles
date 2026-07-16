@@ -216,7 +216,10 @@ EOF
 
     log "Enabling wheel group in sudoers"
     sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
-
+    
+    log "Requiring root password for sudo (Defaults rootpw)"
+    echo "Defaults rootpw" >> /etc/sudoers
+    visudo -c || die "sudoers file is invalid after edit, aborting"
 
     log "Installing systemd-boot"
     mount -t efivarfs efivarfs /sys/firmware/efi/efivars/ 2>/dev/null || true
