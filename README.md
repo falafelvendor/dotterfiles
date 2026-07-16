@@ -18,7 +18,7 @@ Personal Arch Linux setup: a from-scratch installer, a Hyprland dotfiles install
 ## Fresh install order
 
 1. Boot the Arch ISO, then run `TemuArchInstaller.sh` (see below). This gets you a bootable, minimal Arch system.
-2. Reboot into the new system, log in as your user, and run `arch-setup.sh`. This updates the system, sets up SDDM with a theme, installs fonts, and then calls `installer.sh` automatically.
+2. Reboot into the new system,log in as your user, and run `arch-setup.sh`. This updates the system, installs fonts, and then calls `installer.sh` automatically.
 3. `installer.sh` installs Hyprland and its dependencies, clones this repo if it isn't already present, and prompts you through applying dotfiles, replacing your shell config, installing yay and AUR packages, and installing WireGuard configs.
 
 Each script can also be run on its own if you only need part of this — for example, running `dotfinstall.sh` by itself just re-applies the dotfiles without touching packages.
@@ -43,7 +43,7 @@ It partitions and formats the target disk, mounts everything, pacstraps the base
 
 Every step is checkpointed to a state file (`arch-install.state`) next to the script. If something fails partway through — a package not found, a typo'd timezone, a flaky mirror — fix the underlying issue and re-run the script the same way. Completed steps are skipped, and it picks up from wherever it stopped, instead of re-partitioning the disk or re-prompting for passwords you've already set.
 
-To force a completely clean run instead of resuming, pass `--reset`:
+To force a completely clean run instead of the default resume, add flag `--reset`:
 
 ```bash
 ./TemuArchInstaller.sh --reset
