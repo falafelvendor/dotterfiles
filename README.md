@@ -18,7 +18,7 @@ Personal Arch Linux setup: a from-scratch installer, a Hyprland dotfiles install
 ## Fresh install order
 
 1. Boot the Arch ISO, then run `TemuArchInstaller.sh` (see below). This gets you a bootable, minimal Arch system.
-2. Reboot into the new system,log in as your user, and run `arch-setup.sh`. This updates the system, installs fonts, and then calls `installer.sh` automatically.
+2. Reboot into the new system,log in as your user, and run `arch-setup.sh`. This updates the system, installs fonts, and then calls `installer.sh` after downloading it.
 3. `installer.sh` installs Hyprland and its dependencies, clones this repo if it isn't already present, and prompts you through applying dotfiles, replacing your shell config, installing yay and AUR packages, and installing WireGuard configs.
 
 Each script can also be run on its own if you only need part of this; for example, running `dotfinstall.sh` by itself just re-applies the dotfiles without touching packages.
