@@ -25,9 +25,9 @@ It partitions and formats the target disk, mounts everything, pacstraps the base
 To force a completely clean run, run 'rm *.conf':
 
 
-## arch-setup.sh
+## arch-setup.sh (only use if you want hyprland setup)
 
-Run this after rebooting into the freshly installed system, as your normal user (not root — the script refuses to run as root and calls `sudo` itself when needed):
+Run this after rebooting into the freshly installed system and connecting to the internet (NetworkManager is installed), as your normal user (not root — the script refuses to run as root and calls `sudo` itself when needed):
 
 ```bash
 curl -o arch-setup.sh https://raw.githubusercontent.com/deccandewan/dotterfiles/main/arch-setup.sh
@@ -45,10 +45,6 @@ cd ~/dotterfiles
 chmod +x arch-setup.sh installer.sh
 ./arch-setup.sh
 ```
-
-
-
-
 
 ## Contents
 
@@ -70,50 +66,6 @@ chmod +x arch-setup.sh installer.sh
 3. `installer.sh` installs Hyprland and its dependencies, clones this repo if it isn't already present, and prompts you through applying dotfiles, replacing your shell config, installing yay and AUR packages, and installing WireGuard configs.
 
 Each script can also be run on its own if you only need part of this; for example, running `dotfinstall.sh` by itself just re-applies the dotfiles without touching packages.
-
-## TemuArchInstaller.sh
-
-The reason this installer exists even after archinstall(official) is because archinstall always introduced some sort of latency on the system, which made it feel horrendous to use.
-
-Run from the Arch ISO live environment as root:
-
-```bash
-curl -o TemuArchInstaller.sh https://raw.githubusercontent.com/deccandewan/dotterfiles/main/TemuArchInstaller.sh
-chmod +x TemuArchInstaller.sh
-./TemuArchInstaller.sh
-```
-
-Before running, open the script and edit the config block at the top (disk, hostname, username, timezone, locale, partition sizes, whether to install Nvidia drivers). The script will show you the current values and ask if you want to change them interactively before doing anything destructive.
-
-It partitions and formats the target disk, mounts everything, pacstraps the base system, generates fstab, then copies itself into the new install and `arch-chroot`s in to finish the rest: locale, timezone, hostname, base packages, microcode, root and user accounts, sudoers, systemd-boot, NetworkManager, and Nvidia drivers if requested.
-
-**This will completely wipe the target disk.** The script asks for an explicit `YES` confirmation before partitioning, and only runs in UEFI mode (it checks `efivar -l` before doing anything).
-
-
-
-To force a completely clean run, run 'rm TemuInstaller.conf':
-
-
-## arch-setup.sh
-
-Run this after rebooting into the freshly installed system, as your normal user (not root — the script refuses to run as root and calls `sudo` itself when needed):
-
-```bash
-curl -o arch-setup.sh https://raw.githubusercontent.com/deccandewan/dotterfiles/main/arch-setup.sh
-chmod +x arch-setup.sh
-./arch-setup.sh
-```
-
-It runs a full `pacman -Syu`, installs yay if it isn't already present, installs fonts (including the Arabic fontconfig setup), then fetches `installer.sh` from this repo into the same directory and hands off to it automatically.
-
-`installer.sh` looks for a `dotterfiles` folder under `$HOME`; if it's not there yet, it clones this repo to `~/dotterfiles` and continues from there, prompting you through the rest (dotfiles, shell config, AUR packages, WireGuard). If you'd rather clone the whole repo upfront instead of letting the scripts fetch pieces on their own, that works too:
-
-```bash
-git clone https://github.com/deccandewan/dotterfiles ~/dotterfiles
-cd ~/dotterfiles
-chmod +x arch-setup.sh installer.sh
-./arch-setup.sh
-```
 
 ## Notes
 
