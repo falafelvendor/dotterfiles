@@ -1,10 +1,10 @@
 # Arch Install — SomeOrdinaryGamers
 
-Needs internet (just use ethernet if you can — simplest option).
+Needs internet (just use ethernet if you can).
 
 ## Wi-Fi (if no ethernet)
 
-`wlan0` is the interface assumed below — find yours with `ip link` first.
+`wlan0` is the interface assumed below, find yours with `ip link` first.
 
 ```bash
 iwctl
@@ -13,6 +13,11 @@ iwctl
 ```bash
 station wlan0 scan
 ```
+
+```bash
+station wlan0 get-networks
+```
+
 
 ```bash
 station wlan0 connect (ssid)
