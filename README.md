@@ -25,6 +25,8 @@ Each script can also be run on its own if you only need part of this; for exampl
 
 ## TemuArchInstaller.sh
 
+The reason this installer exists even after archinstall(official) is because archinstall always introduced some sort of latency on the system, which made it feel horrendous to use.
+
 Run from the Arch ISO live environment as root:
 
 ```bash
