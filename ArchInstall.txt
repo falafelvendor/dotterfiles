@@ -1,0 +1,311 @@
+###Arch Install - SomeOrdinaryGamers
+
+Installation:
+-> Needs internet (just use ethernet)
+
+1. Make sure it's booted into uefi
+```
+efivar -l
+```
+
+if you see random lines, you're good to go.
+
+2. lsblk, identify the disk to work with. 
+
+```
+gdisk 
+```
+-> gdisk /path/to/disk
+
+gdisk: x (for expert)
+gdisk: z (clear disk)
+
+
+3. Partitioning the disk
+```
+cgdisk
+```
+-> cgdisk /path/to/disk
+-> creating boot partition
+default, 1024MiB (size), EF00 (filesystem), boot (name)
+
+-> creating swap 
+default, 16GiB (size, other sizes work fine), 8200 (filesystem), swap (name)
+
+-> creating root (/)
+default, 50GiB (size, can be 20gb+), 8300 (filesystem, default), root (name)
+
+-> create home (/home)
+default, default(size, use rest of the space left), 8300 (filesystem, default), home (name)
+
+-> write the changes
+-> quit cgdisk
+
+4. Formatting the newly made partitions
+
+-> Format /boot
+```
+mkfs.fat -F32 /path/to/boot (first partition made)
+```
+
+-> Format swap and enable swap
+```
+mkswap /path/to/swap (second partition made)
+```
+
+```
+swapon /path/to/swap (enable swap)
+```
+
+->Format /root
+```
+mkfs.ext4 /path/to/root (third partition made)
+```
+
+-> Format /home
+```
+mkfs.ext4 /path/to/home (fourth partition made)
+```
+
+
+5. Mounting formatted partitions and installing
+
+->Mounting /root
+```
+mount /path/to/root /mnt
+```
+
+->making /boot and mounting
+```
+mkdir /mnt/boot 
+```
+
+```
+mount /path/to/boot /mnt/boot
+```
+
+->making /home and mounting
+```
+mkdir /mnt/home 
+```
+
+```
+mount /path/to/home /mnt/home
+```
+
+
+-> verify it worked
+```
+lsblk
+```
+--should show the partitions now mounted. (/mnt, /mnt/boot, /mnt/home)
+
+6. Updating pacman MirrorList
+
+-> create backup mirrorlist
+```
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+```
+
+->download rankmirror package
+```
+sudo pacman -Sy pacman-contrib
+```
+
+->rankmirror (a few minutes)
+```
+rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+```
+
+7. Installing Arch
+
+->Strapping on
+```
+pacstrap -K /mnt base linux linux-firmware linux-headers base-devel
+```
+
+-> generating fstab
+```
+genfstab -U -p /mnt >> /mnt/etc/fstab
+```
+
+8. chroot into install
+
+```
+arch-chroot /mnt
+```
+
+-> install nvim, zsh and network
+```
+pacman -S sudo nvim zsh dhcpcd networkmanager
+```
+
+->edit locale
+```
+nvim /etc/locale.gen
+```
+#Uncomment "en_US.UTF-8" and save.
+
+->generating locale
+```
+locale-gen
+```
+
+```
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+```
+
+```
+export LANG=en_US.UTF-8 
+```
+
+-> Setting timezone
+```
+ls /usr/share/zoneinfo
+```
+
+#find timezone
+
+```
+ln -sf /usr/share/zoneinfo/path/to/location /etc/localtime
+```
+
+```
+hwclock --systohc --utc
+```
+
+-> Setting hostname
+```
+echo (hostname) > /etc/hostname
+```
+
+-> enabling trim for SSD
+```
+systemctl enable fstrim.timer
+```
+
+-> enabling 32bit support pacman
+```
+nvim /etc/pacman.conf
+```
+#search "multilib" uncomment multilib and below line
+#run "sudo pacman -Sy" to download multilib database
+
+->Setting root password
+```
+passwd 
+```
+
+-> Making user account
+```
+useradd -m -g users -G wheel,storage,audio,video,power -s /bin/zsh (username)
+```
+
+```
+passwd (username)
+```
+
+-> walling rootpasswd and userpasswd
+```
+EDITOR=nvim visudo
+```
+#find "%wheel" and uncomment the line
+#go to the bottom and add "Defaults rootpw and save
+
+
+9. Installing bootloader
+-> listing efi
+```
+mount -t efivarfs efivarfs /sys/firmware/efi/efivars/ 
+```
+
+->installing bootloader
+```
+bootctl install
+```
+
+-> writing boot entry
+```
+nvim /boot/loader/entries/arch.conf
+```
+#add the following to arch.conf"
+title Arch 
+linux /vmlinuz-linux
+initrd /initramfs-linux.img 
+"
+
+->listing disk
+```
+echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /path/to/root) rw" >> /boot/loader/entries/arch.conf
+```
+
+#install microcode if needed
+
+
+10. network
+->enable
+```
+ip link
+```
+#find interface (apart from lo)
+
+```
+sudo systemctl enable dhcpcd@(interface).service
+```
+
+```
+sudo systemctl enable NetworkManager.service
+```
+
+11. Installing dreaded graphics drivers and hooks (nvidia)
+```
+sudo pacman -S nvidia-dkms libglvnd nvidia-utils opencl-nvidia lib32-libglvnd lib32-nvidia-utils lib32-opencl-nvidia nvidia-settings
+```
+
+-> enabling modules
+```
+sudo nvim /etc/mkinitcpio.conf
+```
+#inside "MODULES=()" add "nvidia nvidia_modeset nvidia_uvm nvidia_drm" and save
+
+->enable modules at boot
+```
+sudo nvim /boot/loader/entries/arch.conf
+```
+#after "rw" add "nvidia-drm.modeset=1"
+
+->build hook for nvidia
+```
+sudo mkdir /etc/pacman.d/hooks/
+```
+
+```
+sudo nvim /etc/pacman.d/hooks/nvidia.hook
+```
+#add the following to it"
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+
+[Action]
+Depends=mkinitcpio
+When=PostTransaction
+Exec=/usr/bin/mkinitcpio -P 
+"
+
+
+12. Booting into your system :)
+```
+umount -R /mnt
+```
+
+```
+reboot
+```
+#remove USB
+
+->Login
+username and passwd
