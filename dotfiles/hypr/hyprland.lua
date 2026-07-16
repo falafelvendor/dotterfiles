@@ -62,6 +62,11 @@ end)
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
+-- FORCE HYPRLAND TO BOOT AND RENDER ON NVIDIA
+--hl.env("AQ_DRM_DEVICES",      "/dev/dri/card1:/dev/dri/card2")
+
+
+
 
 hl.env("HYPRCURSOR_SIZE",     "24")
 hl.env("HYPRCURSOR_THEME",    "rose-pine-hyprcursor")
