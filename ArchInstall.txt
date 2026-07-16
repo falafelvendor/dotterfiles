@@ -2,9 +2,28 @@
 
 Installation:
 -> Needs internet (just use ethernet)
+-> "wlan0" is the interface thats assumed, find yours with "ip link" and just: 
+```bash
+iwctl
+```
+
+```bash
+station wlan0 scan
+```
+
+```bash
+station wlan0 connect (ssid)
+```
+
+```bash 
+station wlan0 show
+```
+->should be connected
+
+###Installation
 
 1. Make sure it's booted into uefi
-```
+```bash
 efivar -l
 ```
 
@@ -12,7 +31,7 @@ if you see random lines, you're good to go.
 
 2. lsblk, identify the disk to work with. 
 
-```
+```bash
 gdisk 
 ```
 -> gdisk /path/to/disk
@@ -22,7 +41,7 @@ gdisk: z (clear disk)
 
 
 3. Partitioning the disk
-```
+```bash
 cgdisk
 ```
 -> cgdisk /path/to/disk
@@ -44,26 +63,26 @@ default, default(size, use rest of the space left), 8300 (filesystem, default), 
 4. Formatting the newly made partitions
 
 -> Format /boot
-```
+```bash
 mkfs.fat -F32 /path/to/boot (first partition made)
 ```
 
 -> Format swap and enable swap
-```
+```bash
 mkswap /path/to/swap (second partition made)
 ```
 
-```
+```bash
 swapon /path/to/swap (enable swap)
 ```
 
 ->Format /root
-```
+```bash
 mkfs.ext4 /path/to/root (third partition made)
 ```
 
 -> Format /home
-```
+```bash
 mkfs.ext4 /path/to/home (fourth partition made)
 ```
 
@@ -71,31 +90,31 @@ mkfs.ext4 /path/to/home (fourth partition made)
 5. Mounting formatted partitions and installing
 
 ->Mounting /root
-```
+```bash
 mount /path/to/root /mnt
 ```
 
 ->making /boot and mounting
-```
+```bash
 mkdir /mnt/boot 
 ```
 
-```
+```bash
 mount /path/to/boot /mnt/boot
 ```
 
 ->making /home and mounting
-```
+```bash
 mkdir /mnt/home 
 ```
 
-```
+```bash
 mount /path/to/home /mnt/home
 ```
 
 
 -> verify it worked
-```
+```bash
 lsblk
 ```
 --should show the partitions now mounted. (/mnt, /mnt/boot, /mnt/home)
@@ -103,110 +122,110 @@ lsblk
 6. Updating pacman MirrorList
 
 -> create backup mirrorlist
-```
+```bash
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 ```
 
 ->download rankmirror package
-```
+```bash
 sudo pacman -Sy pacman-contrib
 ```
 
 ->rankmirror (a few minutes)
-```
+```bash
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 ```
 
 7. Installing Arch
 
 ->Strapping on
-```
+```bash
 pacstrap -K /mnt base linux linux-firmware linux-headers base-devel
 ```
 
 -> generating fstab
-```
+```bash
 genfstab -U -p /mnt >> /mnt/etc/fstab
 ```
 
 8. chroot into install
 
-```
+```bash
 arch-chroot /mnt
 ```
 
 -> install nvim, zsh and network
-```
+```bash
 pacman -S sudo nvim zsh dhcpcd networkmanager
 ```
 
 ->edit locale
-```
+```bash
 nvim /etc/locale.gen
 ```
 #Uncomment "en_US.UTF-8" and save.
 
 ->generating locale
-```
+```bash
 locale-gen
 ```
 
-```
+```bash
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 ```
 
-```
+```bash
 export LANG=en_US.UTF-8 
 ```
 
 -> Setting timezone
-```
+```bash
 ls /usr/share/zoneinfo
 ```
 
 #find timezone
 
-```
+```bash
 ln -sf /usr/share/zoneinfo/path/to/location /etc/localtime
 ```
 
-```
+```bash
 hwclock --systohc --utc
 ```
 
 -> Setting hostname
-```
+```bash
 echo (hostname) > /etc/hostname
 ```
 
 -> enabling trim for SSD
-```
+```bash
 systemctl enable fstrim.timer
 ```
 
 -> enabling 32bit support pacman
-```
+```bash
 nvim /etc/pacman.conf
 ```
 #search "multilib" uncomment multilib and below line
 #run "sudo pacman -Sy" to download multilib database
 
 ->Setting root password
-```
+```bash
 passwd 
 ```
 
 -> Making user account
-```
+```bash
 useradd -m -g users -G wheel,storage,audio,video,power -s /bin/zsh (username)
 ```
 
-```
+```bash
 passwd (username)
 ```
 
 -> walling rootpasswd and userpasswd
-```
+```bash
 EDITOR=nvim visudo
 ```
 #find "%wheel" and uncomment the line
@@ -215,17 +234,17 @@ EDITOR=nvim visudo
 
 9. Installing bootloader
 -> listing efi
-```
+```bash
 mount -t efivarfs efivarfs /sys/firmware/efi/efivars/ 
 ```
 
 ->installing bootloader
-```
+```bash
 bootctl install
 ```
 
 -> writing boot entry
-```
+```bash
 nvim /boot/loader/entries/arch.conf
 ```
 #add the following to arch.conf"
@@ -235,7 +254,7 @@ initrd /initramfs-linux.img
 "
 
 ->listing disk
-```
+```bash
 echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /path/to/root) rw" >> /boot/loader/entries/arch.conf
 ```
 
@@ -244,42 +263,42 @@ echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /path/to/root) rw" >> /
 
 10. network
 ->enable
-```
+```bash
 ip link
 ```
 #find interface (apart from lo)
 
-```
+```bash
 sudo systemctl enable dhcpcd@(interface).service
 ```
 
-```
+```bash
 sudo systemctl enable NetworkManager.service
 ```
 
 11. Installing dreaded graphics drivers and hooks (nvidia)
-```
+```bash
 sudo pacman -S nvidia-dkms libglvnd nvidia-utils opencl-nvidia lib32-libglvnd lib32-nvidia-utils lib32-opencl-nvidia nvidia-settings
 ```
 
 -> enabling modules
-```
+```bash
 sudo nvim /etc/mkinitcpio.conf
 ```
 #inside "MODULES=()" add "nvidia nvidia_modeset nvidia_uvm nvidia_drm" and save
 
 ->enable modules at boot
-```
+```bash
 sudo nvim /boot/loader/entries/arch.conf
 ```
 #after "rw" add "nvidia-drm.modeset=1"
 
 ->build hook for nvidia
-```
+```bash
 sudo mkdir /etc/pacman.d/hooks/
 ```
 
-```
+```bash
 sudo nvim /etc/pacman.d/hooks/nvidia.hook
 ```
 #add the following to it"
@@ -298,11 +317,11 @@ Exec=/usr/bin/mkinitcpio -P
 
 
 12. Booting into your system :)
-```
+```bash
 umount -R /mnt
 ```
 
-```
+```bash
 reboot
 ```
 #remove USB
