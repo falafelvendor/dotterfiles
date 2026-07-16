@@ -49,6 +49,27 @@ To force a completely clean run instead of the default resume, add flag `--reset
 ./TemuArchInstaller.sh --reset
 ```
 
+## arch-setup.sh
+
+Run this after rebooting into the freshly installed system, as your normal user (not root — the script refuses to run as root and calls `sudo` itself when needed):
+
+```bash
+curl -o arch-setup.sh https://raw.githubusercontent.com/deccandewan/dotterfiles/main/arch-setup.sh
+chmod +x arch-setup.sh
+./arch-setup.sh
+```
+
+It runs a full `pacman -Syu`, installs yay if it isn't already present, installs fonts (including the Arabic fontconfig setup), then fetches `installer.sh` from this repo into the same directory and hands off to it automatically.
+
+`installer.sh` looks for a `dotterfiles` folder under `$HOME`; if it's not there yet, it clones this repo to `~/dotterfiles` and continues from there, prompting you through the rest (dotfiles, shell config, AUR packages, WireGuard). If you'd rather clone the whole repo upfront instead of letting the scripts fetch pieces on their own, that works too:
+
+```bash
+git clone https://github.com/deccandewan/dotterfiles ~/dotterfiles
+cd ~/dotterfiles
+chmod +x arch-setup.sh installer.sh
+./arch-setup.sh
+```
+
 ## Notes
 
 - `dotfinstall.sh` expects the `dotfiles/` folder to sit next to it, and installs pacman packages before copying configs is recommended — `fontconfig` in particular depends on packages being present first.

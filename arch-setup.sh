@@ -55,6 +55,7 @@ EOF
 fc-cache -fv
 
 # ── Hand off to installer.sh ──────────────────────────────────────────────────
+curl -o "$SCRIPT_DIR/installer.sh" https://raw.githubusercontent.com/deccandewan/dotterfiles/main/installer.sh
 echo ""
 echo ">>> System setup done. Handing off to installer.sh..."
 echo ""

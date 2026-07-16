@@ -1,8 +1,11 @@
-###Arch Install - SomeOrdinaryGamers
+# Arch Install — SomeOrdinaryGamers
 
-Installation:
--> Needs internet (just use ethernet)
--> "wlan0" is the interface thats assumed, find yours with "ip link" and just: 
+Needs internet (just use ethernet if you can — simplest option).
+
+## Wi-Fi (if no ethernet)
+
+`wlan0` is the interface assumed below — find yours with `ip link` first.
+
 ```bash
 iwctl
 ```
@@ -15,293 +18,227 @@ station wlan0 scan
 station wlan0 connect (ssid)
 ```
 
-```bash 
+```bash
 station wlan0 show
 ```
-->should be connected
 
-###Installation
+Should show as connected.
 
-1. Make sure it's booted into uefi
+## 1. Confirm UEFI boot mode
+
 ```bash
 efivar -l
 ```
 
-if you see random lines, you're good to go.
+If you see random lines of output, you're good to go.
 
-2. lsblk, identify the disk to work with. 
+## 2. Identify the disk
 
-```bash
-gdisk 
-```
--> gdisk /path/to/disk
-
-gdisk: x (for expert)
-gdisk: z (clear disk)
-
-
-3. Partitioning the disk
-```bash
-cgdisk
-```
--> cgdisk /path/to/disk
--> creating boot partition
-default, 1024MiB (size), EF00 (filesystem), boot (name)
-
--> creating swap 
-default, 16GiB (size, other sizes work fine), 8200 (filesystem), swap (name)
-
--> creating root (/)
-default, 50GiB (size, can be 20gb+), 8300 (filesystem, default), root (name)
-
--> create home (/home)
-default, default(size, use rest of the space left), 8300 (filesystem, default), home (name)
-
--> write the changes
--> quit cgdisk
-
-4. Formatting the newly made partitions
-
--> Format /boot
-```bash
-mkfs.fat -F32 /path/to/boot (first partition made)
-```
-
--> Format swap and enable swap
-```bash
-mkswap /path/to/swap (second partition made)
-```
-
-```bash
-swapon /path/to/swap (enable swap)
-```
-
-->Format /root
-```bash
-mkfs.ext4 /path/to/root (third partition made)
-```
-
--> Format /home
-```bash
-mkfs.ext4 /path/to/home (fourth partition made)
-```
-
-
-5. Mounting formatted partitions and installing
-
-->Mounting /root
-```bash
-mount /path/to/root /mnt
-```
-
-->making /boot and mounting
-```bash
-mkdir /mnt/boot 
-```
-
-```bash
-mount /path/to/boot /mnt/boot
-```
-
-->making /home and mounting
-```bash
-mkdir /mnt/home 
-```
-
-```bash
-mount /path/to/home /mnt/home
-```
-
-
--> verify it worked
 ```bash
 lsblk
 ```
---should show the partitions now mounted. (/mnt, /mnt/boot, /mnt/home)
 
-6. Updating pacman MirrorList
+```bash
+gdisk /path/to/disk
+```
 
--> create backup mirrorlist
+Inside `gdisk` do:
+- `x` — expert mode
+- `z` — clear disk
+
+## 3. Partition the disk
+
+```bash
+cgdisk /path/to/disk
+```
+
+Create these partitions in order:
+
+| Partition | Size | Type code | Name |
+|---|---|---|---|
+| boot | 1024MiB | EF00 | boot |
+| swap | 16GiB (flexible) | 8200 | swap |
+| root | 50GiB (20GB+ works) | 8300 | root |
+| home | rest of the disk | 8300 | home |
+
+Write changes, then quit `cgdisk`.
+
+## 4. Format the partitions
+
+Format `/boot`:
+```bash
+mkfs.fat -F32 /path/to/boot
+```
+
+Format and enable swap:
+```bash
+mkswap /path/to/swap
+swapon /path/to/swap
+```
+
+Format `/root`:
+```bash
+mkfs.ext4 /path/to/root
+```
+
+Format `/home`:
+```bash
+mkfs.ext4 /path/to/home
+```
+
+## 5. Mount the partitions
+
+```bash
+mount /path/to/root /mnt
+mkdir /mnt/boot
+mount /path/to/boot /mnt/boot
+mkdir /mnt/home
+mount /path/to/home /mnt/home
+```
+
+Verify:
+```bash
+lsblk
+```
+Should show `/mnt`, `/mnt/boot`, and `/mnt/home` mounted.
+
+## 6. Update the pacman mirrorlist
+
 ```bash
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-```
-
-->download rankmirror package
-```bash
 sudo pacman -Sy pacman-contrib
-```
-
-->rankmirror (a few minutes)
-```bash
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 ```
+Ranking mirrors can take a few minutes.
 
-7. Installing Arch
+## 7. Install the base system
 
-->Strapping on
 ```bash
 pacstrap -K /mnt base linux linux-firmware linux-headers base-devel
 ```
 
--> generating fstab
+Generate fstab:
 ```bash
 genfstab -U -p /mnt >> /mnt/etc/fstab
 ```
 
-8. chroot into install
+## 8. Chroot in and configure
 
 ```bash
 arch-chroot /mnt
 ```
 
--> install nvim, zsh and network
+Install nvim, zsh, and networking tools:
 ```bash
 pacman -S sudo nvim zsh dhcpcd networkmanager
 ```
 
-->edit locale
+**Locale** — uncomment `en_US.UTF-8` in `/etc/locale.gen`:
 ```bash
 nvim /etc/locale.gen
 ```
-#Uncomment "en_US.UTF-8" and save.
-
-->generating locale
 ```bash
 locale-gen
-```
-
-```bash
 echo LANG=en_US.UTF-8 > /etc/locale.conf
+export LANG=en_US.UTF-8
 ```
 
-```bash
-export LANG=en_US.UTF-8 
-```
-
--> Setting timezone
+**Timezone** — find yours, then link it:
 ```bash
 ls /usr/share/zoneinfo
-```
-
-#find timezone
-
-```bash
 ln -sf /usr/share/zoneinfo/path/to/location /etc/localtime
-```
-
-```bash
 hwclock --systohc --utc
 ```
 
--> Setting hostname
+**Hostname:**
 ```bash
 echo (hostname) > /etc/hostname
 ```
 
--> enabling trim for SSD
+**SSD trim:**
 ```bash
 systemctl enable fstrim.timer
 ```
 
--> enabling 32bit support pacman
+**Multilib** — uncomment the `[multilib]` block and the line below it in `/etc/pacman.conf`, then:
 ```bash
 nvim /etc/pacman.conf
+sudo pacman -Sy
 ```
-#search "multilib" uncomment multilib and below line
-#run "sudo pacman -Sy" to download multilib database
 
-->Setting root password
+**Root password:**
 ```bash
-passwd 
+passwd
 ```
 
--> Making user account
+**Create user account:**
 ```bash
 useradd -m -g users -G wheel,storage,audio,video,power -s /bin/zsh (username)
-```
-
-```bash
 passwd (username)
 ```
 
--> walling rootpasswd and userpasswd
+**Enable sudo for wheel group** — uncomment `%wheel` in `visudo`, and add `Defaults rootpw` at the bottom:
 ```bash
 EDITOR=nvim visudo
 ```
-#find "%wheel" and uncomment the line
-#go to the bottom and add "Defaults rootpw and save
 
+## 9. Install the bootloader
 
-9. Installing bootloader
--> listing efi
 ```bash
-mount -t efivarfs efivarfs /sys/firmware/efi/efivars/ 
-```
-
-->installing bootloader
-```bash
+mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
 bootctl install
 ```
 
--> writing boot entry
+Create `/boot/loader/entries/arch.conf`:
 ```bash
 nvim /boot/loader/entries/arch.conf
 ```
-#add the following to arch.conf"
-title Arch 
+```
+title Arch
 linux /vmlinuz-linux
-initrd /initramfs-linux.img 
-"
+initrd /initramfs-linux.img
+```
 
-->listing disk
+Append the root partition option:
 ```bash
 echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /path/to/root) rw" >> /boot/loader/entries/arch.conf
 ```
 
-#install microcode if needed
+Install microcode here if needed (intel-ucode / amd-ucode).
 
+## 10. Network
 
-10. network
-->enable
 ```bash
 ip link
 ```
-#find interface (apart from lo)
-
+Find your interface (anything besides `lo`), then:
 ```bash
 sudo systemctl enable dhcpcd@(interface).service
-```
-
-```bash
 sudo systemctl enable NetworkManager.service
 ```
 
-11. Installing dreaded graphics drivers and hooks (nvidia)
+## 11. Nvidia drivers (if you have nvidia-gpu)
+
 ```bash
 sudo pacman -S nvidia-dkms libglvnd nvidia-utils opencl-nvidia lib32-libglvnd lib32-nvidia-utils lib32-opencl-nvidia nvidia-settings
 ```
 
--> enabling modules
+Add `nvidia nvidia_modeset nvidia_uvm nvidia_drm` inside `MODULES=()`:
 ```bash
 sudo nvim /etc/mkinitcpio.conf
 ```
-#inside "MODULES=()" add "nvidia nvidia_modeset nvidia_uvm nvidia_drm" and save
 
-->enable modules at boot
+Add `nvidia-drm.modeset=1` after `rw`:
 ```bash
 sudo nvim /boot/loader/entries/arch.conf
 ```
-#after "rw" add "nvidia-drm.modeset=1"
 
-->build hook for nvidia
+Build the mkinitcpio hook:
 ```bash
 sudo mkdir /etc/pacman.d/hooks/
-```
-
-```bash
 sudo nvim /etc/pacman.d/hooks/nvidia.hook
 ```
-#add the following to it"
+```
 [Trigger]
 Operation=Install
 Operation=Upgrade
@@ -312,19 +249,13 @@ Target=nvidia
 [Action]
 Depends=mkinitcpio
 When=PostTransaction
-Exec=/usr/bin/mkinitcpio -P 
-"
+Exec=/usr/bin/mkinitcpio -P
+```
 
+## 12. Boot into your system
 
-12. Booting into your system :)
 ```bash
 umount -R /mnt
-```
-
-```bash
 reboot
 ```
-#remove USB
-
-->Login
-username and passwd
+Remove the USB, then log in with your username and password.
