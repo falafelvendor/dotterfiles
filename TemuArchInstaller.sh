@@ -9,7 +9,7 @@
 # copies itself into the new install, then arch-chroots in and re-runs
 # itself with --chroot to finish setup (locale, users, bootloader, etc).
 #
-# EDIT THE CONFIG SECTION BELOW BEFORE RUNNING.
+# EDIT THE CONFIG SECTION BELOW BEFORE RUNNING, the interactive config editor may NOT work.
 
 set -euo pipefail
 
