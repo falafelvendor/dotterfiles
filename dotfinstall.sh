@@ -26,7 +26,7 @@ copy_config neofetch
 copy_config waybar
 copy_config wofi
 copy_config mako
-[ -f "$SCRIPT_DIR/.zshrc" ] && cp "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc" && echo ">>> Copied .zshrc"
+[ -f "$DOTFILES/.zshrc" ] && cp "$DOTFILES/.zshrc" "$HOME/.zshrc" && echo ">>> Copied .zshrc"
 
 # NetworkManager needs sudo
 NM_SRC="$DOTFILES/NetworkManager/00-macrandomize.conf"

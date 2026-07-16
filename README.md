@@ -7,7 +7,7 @@ Personal Arch Linux setup: a from-scratch installer, a Hyprland dotfiles install
 | File | Purpose |
 |---|---|
 | `TemuArchInstaller.sh` | Automates the base Arch Linux install (partitioning through bootloader) from the live ISO. |
-| `ArchInstall.txt` | The manual, step-by-step install notes that `TemuArchInstaller.sh` is based on. Kept as a reference for what the script is actually doing, or as a fallback if you'd rather do it by hand. |
+| `ArchInstall.md` | The manual, step-by-step install notes that `TemuArchInstaller.sh` is based on. Kept as a reference for what the script is actually doing, or as a fallback if you'd rather do it by hand. |
 | `arch-setup.sh` | Post-install system setup: full system update, yay, fonts (including Arabic fontconfig), then hands off to `installer.sh`. |
 | `installer.sh` | Installs Hyprland and related packages via pacman, clones this repo, and walks through applying dotfiles, shell config, yay/AUR packages, and WireGuard configs. |
 | `dotfinstall.sh` | Copies the contents of `dotfiles/` into `~/.config/` (and `.zshrc` into `$HOME`). Can be run standalone if you just want the configs applied again. |
@@ -75,5 +75,5 @@ chmod +x arch-setup.sh installer.sh
 ## Notes
 
 - `dotfinstall.sh` expects the `dotfiles/` folder to sit next to it, and installs pacman packages before copying configs is recommended — `fontconfig` in particular depends on packages being present first.
-- `installer.sh` currently clones from `falafelvendor/dotterfiles`; if you've forked or renamed this repo, update that URL before relying on the clone step.
+- `installer.sh` currently clones from `deccandewan/dotterfiles`; if you've forked or renamed this repo, update that URL before relying on the clone step.
 - `backup.sh` mirrors the same set of configs that `dotfinstall.sh` installs, so the two stay in sync — if you add a new dotfile folder to one, add it to the other.
