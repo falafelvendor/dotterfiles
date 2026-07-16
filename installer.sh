@@ -44,9 +44,9 @@ if [[ "$bashrcans" =~ ^[Yy]$ ]]; then
 else
     read -rp "Replace .zshrc instead? (y/n): " zshrcans
     if [[ "$zshrcans" =~ ^[Yy]$ ]]; then
-        if [ -f "$BASE_DIR/.zshrc" ]; then
+        if [ -f "$BASE_DIR/dotfiles/.zshrc" ]; then
             cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
-            cp "$BASE_DIR/.zshrc" "$HOME/.zshrc"
+            cp "$BASE_DIR/dotfiles/.zshrc" "$HOME/.zshrc"
             echo ">>> .zshrc replaced (backup at ~/.zshrc.bak)"
         else
             echo ">>> .zshrc not found in repo, skipping."
