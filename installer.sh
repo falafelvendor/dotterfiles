@@ -32,28 +32,16 @@ else
 fi
 
 # ── Shell config ──────────────────────────────────────────────────────────────
-read -rp "Replace .bashrc? (y/n): " bashrcans
-if [[ "$bashrcans" =~ ^[Yy]$ ]]; then
-    if [ -f "$BASE_DIR/.bashrc" ]; then
-        cp "$HOME/.bashrc" "$HOME/.bashrc.bak"
-        cp "$BASE_DIR/.bashrc" "$HOME/.bashrc"
-        echo ">>> .bashrc replaced (backup at ~/.bashrc.bak)"
-    else
-        echo ">>> .bashrc not found in repo, skipping."
-    fi
-else
-    read -rp "Replace .zshrc instead? (y/n): " zshrcans
-    if [[ "$zshrcans" =~ ^[Yy]$ ]]; then
-        if [ -f "$BASE_DIR/dotfiles/.zshrc" ]; then
-            cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
-            cp "$BASE_DIR/dotfiles/.zshrc" "$HOME/.zshrc"
-            echo ">>> .zshrc replaced (backup at ~/.zshrc.bak)"
-        else
-            echo ">>> .zshrc not found in repo, skipping."
-        fi
-    fi
+read -rp "Replace .zshrc? (y/n): " zshrcans
+if [[ "$zshrcans" =~ ^[Yy]$ ]]; then
+  if [ -f "$BASE_DIR/dotfiles/.zshrc" ]; then
+    cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
+    cp "$BASE_DIR/dotfiles/.zshrc" "$HOME/.zshrc"
+    echo ">>> .zshrc replaced (backup at ~/.zshrc.bak)"
+  else
+    echo ">>> .zshrc not found in repo, skipping."
+  fi
 fi
-
 # ── Dotfiles ──────────────────────────────────────────────────────────────────
 read -rp "Copy dotfiles? (y/n): " copyans
 if [[ "$copyans" =~ ^[Yy]$ ]]; then
