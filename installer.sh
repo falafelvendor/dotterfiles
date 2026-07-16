@@ -6,7 +6,7 @@ BASE_DIR="$HOME/dotterfiles"
 DOTFILES="$BASE_DIR/dotfiles"
 
 PACMAN_PACKAGES="hyprlock hypridle wofi waybar kitty mako noto-fonts ttf-bitstream-vera \
-    git base-devel cliphist hyprland hyprpaper hyprcursor hyprsunset hyprpolkitagent \
+    git cliphist hyprland hyprpaper hyprcursor hyprsunset hyprpolkitagent \
     xdg-desktop-portal-hyprland pipewire pipewire-pulse pipewire-alsa wireplumber \
     pipewire-jack npm wireguard-tools zsh"
 
@@ -24,7 +24,7 @@ if [[ "$gitans" =~ ^[Yy]$ ]]; then
         echo ">>> $BASE_DIR already exists, pulling instead..."
         git -C "$BASE_DIR" pull
     else
-        git clone https://github.com/falafelvendor/dotterfiles "$BASE_DIR"
+        git clone https://github.com/deccandewan/dotterfiles "$BASE_DIR"
     fi
     chmod +x "$BASE_DIR/dotfinstall.sh"
 else

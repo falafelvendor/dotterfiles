@@ -12,10 +12,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo ">>> Updating system..."
 sudo pacman -Syu --noconfirm
 
-# ── SDDM ──────────────────────────────────────────────────────────────────────
-echo ">>> Installing SDDM..."
-sudo pacman -S --needed --noconfirm sddm
-sudo systemctl enable sddm.service
 
 # ── Yay ───────────────────────────────────────────────────────────────────────
 if ! command -v yay &>/dev/null; then
@@ -27,16 +23,6 @@ else
     echo ">>> yay already installed, skipping."
 fi
 
-# ── SDDM Sugar Candy theme ────────────────────────────────────────────────────
-echo ">>> Installing SDDM Sugar Candy theme..."
-yay -S --noconfirm sddm-theme-sugar-candy
-
-sudo mkdir -p /etc/sddm.conf.d
-cat << 'EOF' | sudo tee /etc/sddm.conf.d/theme.conf > /dev/null
-[Theme]
-Current=Sugar-Candy
-EOF
-echo ">>> SDDM theme set to Sugar-Candy"
 
 # ── Fonts ─────────────────────────────────────────────────────────────────────
 echo ">>> Installing fonts..."
