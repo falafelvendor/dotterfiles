@@ -14,8 +14,8 @@ YAY_PACKAGES="ttf-nerd-fonts-symbols python-hijri-converter rose-pine-hyprcursor
     mov-cli ani-cli python-mov-cli-youtube"
 
 # ── Pacman packages ───────────────────────────────────────────────────────────
-echo ">>> Installing pacman packages..."
-sudo pacman -Syu --needed $PACMAN_PACKAGES && echo ">>> Base packages installed."
+echo ">>> Full System Upgrade and Installing pacman packages..."
+sudo pacman -Syu $PACMAN_PACKAGES && echo ">>> Base packages installed."
 
 # ── Clone repo ────────────────────────────────────────────────────────────────
 read -rp "Clone dotterfiles repo? (y/n): " gitans
