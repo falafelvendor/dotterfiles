@@ -189,7 +189,7 @@ run_chroot_phase() {
 EOF
 
     log "Installing base packages"
-    pacman -Sy --noconfirm sudo neovim zsh networkmanager pacman-contrib
+    pacman -Sy --noconfirm sudo neovim zsh networkmanager git pacman-contrib
 
     log "Enabling multilib"
     sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf

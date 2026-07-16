@@ -10,7 +10,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo ">>> Updating system..."
-sudo pacman -Syu --noconfirm
+sudo pacman -Syu --noconfirm git
 
 
 # ── Yay ───────────────────────────────────────────────────────────────────────
