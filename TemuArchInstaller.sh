@@ -21,7 +21,6 @@ HOSTNAME="archington"
 USERNAME="archer"
 TIMEZONE="Asia/Kolkata"   # must match a path under /usr/share/zoneinfo
 LOCALE="en_US.UTF-8"
-MIRROR_COUNTRY="India" # reflector --country value, e.g. "India" or "Germany,France" — blank to skip geo filtering
 
 
 BOOT_SIZE="1024M"
@@ -53,7 +52,6 @@ DEFAULT_DISK="/dev/sda"
 DEFAULT_HOSTNAME="archington"
 DEFAULT_USERNAME="archer"
 DEFAULT_TIMEZONE="Asia/Kolkata"
-DEFAULT_MIRROR_COUNTRY="India"
 DEFAULT_LOCALE="en_US.UTF-8"
 DEFAULT_BOOT_SIZE="1024M"
 DEFAULT_SWAP_SIZE="16G"
@@ -78,7 +76,6 @@ HOSTNAME="${HOSTNAME}"
 USERNAME="${USERNAME}"
 TIMEZONE="${TIMEZONE}"
 LOCALE="${LOCALE}"
-MIRROR_COUNTRY="${MIRROR_COUNTRY}"
 BOOT_SIZE="${BOOT_SIZE}"
 SWAP_SIZE="${SWAP_SIZE}"
 ROOT_SIZE="${ROOT_SIZE}"
@@ -105,7 +102,7 @@ configure_interactive() {
           "$USERNAME" == "$DEFAULT_USERNAME" && "$TIMEZONE" == "$DEFAULT_TIMEZONE" && \
           "$LOCALE" == "$DEFAULT_LOCALE" && "$BOOT_SIZE" == "$DEFAULT_BOOT_SIZE" && \
           "$SWAP_SIZE" == "$DEFAULT_SWAP_SIZE" && "$ROOT_SIZE" == "$DEFAULT_ROOT_SIZE" && \
-          "$INSTALL_NVIDIA" == "$DEFAULT_INSTALL_NVIDIA" && "$MIRROR_COUNTRY" == "$DEFAULT_MIRROR_COUNTRY" ]]; then 
+          "$INSTALL_NVIDIA" == "$DEFAULT_INSTALL_NVIDIA" ]]; then 
     unchanged=true
     fi
 
@@ -116,7 +113,6 @@ configure_interactive() {
     echo "  USERNAME       = ${USERNAME}"
     echo "  TIMEZONE       = ${TIMEZONE}"
     echo "  LOCALE         = ${LOCALE}"
-    echo "  MIRROR_COUNTRY  = ${MIRROR_COUNTRY}"
     echo "  BOOT_SIZE      = ${BOOT_SIZE}"
     echo "  SWAP_SIZE      = ${SWAP_SIZE}"
     echo "  ROOT_SIZE      = ${ROOT_SIZE}"
@@ -140,7 +136,6 @@ configure_interactive() {
         USERNAME=$(prompt_value "Username" "$USERNAME")
         TIMEZONE=$(prompt_value "Timezone (path under /usr/share/zoneinfo)" "$TIMEZONE")
         LOCALE=$(prompt_value "Locale" "$LOCALE")
-	MIRROR_COUNTRY=$(prompt_value "Reflector country filter (blank = worldwide)" "$MIRROR_COUNTRY")
         BOOT_SIZE=$(prompt_value "Boot partition size" "$BOOT_SIZE")
         SWAP_SIZE=$(prompt_value "Swap partition size" "$SWAP_SIZE")
         ROOT_SIZE=$(prompt_value "Root partition size (home gets the rest)" "$ROOT_SIZE")
@@ -160,7 +155,6 @@ configure_interactive() {
         echo "  USERNAME       = ${USERNAME}"
         echo "  TIMEZONE       = ${TIMEZONE}"
         echo "  LOCALE         = ${LOCALE}"
-	echo "  MIRROR_COUNTRY  = ${MIRROR_COUNTRY}"
         echo "  BOOT_SIZE      = ${BOOT_SIZE}"
         echo "  SWAP_SIZE      = ${SWAP_SIZE}"
         echo "  ROOT_SIZE      = ${ROOT_SIZE}"
@@ -330,12 +324,10 @@ run_live_phase() {
     pacman-key --populate archlinux
     pacman -Sy --noconfirm archlinux-keyring
 
-    log "Ranking mirrors with reflector (this can take a few minutes)"
-    pacman -Sy --noconfirm reflector
+    log "Ranking mirrors (this can take a few minutes)"
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-    REFLECTOR_ARGS=(--protocol https --age 12 --latest 10 --sort rate --save /etc/pacman.d/mirrorlist)
-    [[ -n "$MIRROR_COUNTRY" ]] && REFLECTOR_ARGS=(--country "$MIRROR_COUNTRY" "${REFLECTOR_ARGS[@]}")
-    reflector "${REFLECTOR_ARGS[@]}"
+    pacman -Sy --noconfirm pacman-contrib
+    rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
     
     log "Enabling parallel downloads"
     sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
