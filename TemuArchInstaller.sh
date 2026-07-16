@@ -186,37 +186,25 @@ run_chroot_phase() {
 127.0.1.1   ${HOSTNAME}.localdomain ${HOSTNAME}
 EOF
 
+  log "Installing base packages"
+  pacman -Sy --noconfirm sudo nvim zsh networkmanager pacman-contrib
+
   log "Enabling multilib"
-  # Just editing the repo list here — no sync yet. We want exactly one
-  # pacman -Sy for the whole chroot phase, run once all repos are enabled
-  # and the full package list (base + microcode + nvidia) is known, instead
-  # of re-syncing/re-resolving dependencies on every separate install call.
   sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
-
-  log "Determining CPU microcode package"
-  CPU_VENDOR=$(grep -m1 -o -E 'GenuineIntel|AuthenticAMD' /proc/cpuinfo)
-  if [[ "$CPU_VENDOR" == "GenuineIntel" ]]; then
-    UCODE_PKG="intel-ucode"
-    UCODE_IMG="intel-ucode.img"
-  else
-    UCODE_PKG="amd-ucode"
-    UCODE_IMG="amd-ucode.img"
-  fi
-
-  PACKAGES=(sudo nvim zsh networkmanager pacman-contrib "${UCODE_PKG}")
-  if [[ "$INSTALL_NVIDIA" == "true" ]]; then
-    PACKAGES+=(nvidia-dkms libglvnd nvidia-utils opencl-nvidia \
-      lib32-libglvnd lib32-nvidia-utils lib32-opencl-nvidia nvidia-settings)
-  fi
-
-  log "Syncing package databases"
   pacman -Sy --noconfirm
-
-  log "Installing packages: ${PACKAGES[*]}"
-  pacman -S --noconfirm --needed "${PACKAGES[@]}"
 
   log "Enabling fstrim timer (SSD trim)"
   systemctl enable fstrim.timer
+
+  log "Installing CPU microcode"
+  CPU_VENDOR=$(grep -m1 -o -E 'GenuineIntel|AuthenticAMD' /proc/cpuinfo)
+  if [[ "$CPU_VENDOR" == "GenuineIntel" ]]; then
+    pacman -S --noconfirm intel-ucode
+    UCODE_IMG="intel-ucode.img"
+  else
+    pacman -S --noconfirm amd-ucode
+    UCODE_IMG="amd-ucode.img"
+  fi
 
   log "Setting root password (you will be prompted)"
   passwd
@@ -266,7 +254,10 @@ EOF
   systemctl enable NetworkManager.service
 
   if [[ "$INSTALL_NVIDIA" == "true" ]]; then
-    log "Configuring Nvidia drivers (already installed above)"
+    log "Installing Nvidia drivers"
+    pacman -S --noconfirm nvidia-dkms libglvnd nvidia-utils opencl-nvidia \
+      lib32-libglvnd lib32-nvidia-utils lib32-opencl-nvidia nvidia-settings
+
     sed -i 's/^MODULES=(\(.*\))/MODULES=(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
 
     mkdir -p /etc/pacman.d/hooks
