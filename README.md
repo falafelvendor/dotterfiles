@@ -8,7 +8,7 @@ Personal Arch Linux setup: a from-scratch installer, a Hyprland dotfiles install
 |---|---|
 | `TemuArchInstaller.sh` | Automates the base Arch Linux install (partitioning through bootloader) from the live ISO. |
 | `ArchInstall.txt` | The manual, step-by-step install notes that `TemuArchInstaller.sh` is based on. Kept as a reference for what the script is actually doing, or as a fallback if you'd rather do it by hand. |
-| `arch-setup.sh` | Post-install system setup: full system update, SDDM + Sugar Candy theme, yay, fonts (including Arabic fontconfig), then hands off to `installer.sh`. |
+| `arch-setup.sh` | Post-install system setup: full system update, yay, fonts (including Arabic fontconfig), then hands off to `installer.sh`. |
 | `installer.sh` | Installs Hyprland and related packages via pacman, clones this repo, and walks through applying dotfiles, shell config, yay/AUR packages, and WireGuard configs. |
 | `dotfinstall.sh` | Copies the contents of `dotfiles/` into `~/.config/` (and `.zshrc` into `$HOME`). Can be run standalone if you just want the configs applied again. |
 | `backup.sh` | Reverse of `dotfinstall.sh` — copies your current configs out of `~/.config/` into a folder of your choosing, for backing up before changes or before wiping a machine. |
@@ -21,7 +21,7 @@ Personal Arch Linux setup: a from-scratch installer, a Hyprland dotfiles install
 2. Reboot into the new system,log in as your user, and run `arch-setup.sh`. This updates the system, installs fonts, and then calls `installer.sh` automatically.
 3. `installer.sh` installs Hyprland and its dependencies, clones this repo if it isn't already present, and prompts you through applying dotfiles, replacing your shell config, installing yay and AUR packages, and installing WireGuard configs.
 
-Each script can also be run on its own if you only need part of this — for example, running `dotfinstall.sh` by itself just re-applies the dotfiles without touching packages.
+Each script can also be run on its own if you only need part of this; for example, running `dotfinstall.sh` by itself just re-applies the dotfiles without touching packages.
 
 ## TemuArchInstaller.sh
 
