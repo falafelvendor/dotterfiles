@@ -36,3 +36,14 @@ if [ -f "$NM_SRC" ]; then
 else
     echo ">>> Skipping NetworkManager config (not found)"
 fi
+
+# libvirt NAT network definition
+LIBVIRT_SRC="$DOTFILES/default.xml"
+if [ -f "$LIBVIRT_SRC" ]; then
+    sudo mkdir -p /etc/libvirt/qemu/networks
+    sudo cp "$LIBVIRT_SRC" /etc/libvirt/qemu/networks/default.xml
+    sudo chmod 600 /etc/libvirt/qemu/networks/default.xml
+    echo ">>> Copied libvirt default network definition"
+else
+    echo ">>> Skipping libvirt network config (not found)"
+fi
