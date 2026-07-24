@@ -50,27 +50,39 @@ bindkey '^[[B' down-line-or-beginning-search
 #LM studio
 alias ai="/home/faraz/Desktop/LMStudio.AppImage"
 alias win="/home/faraz/Applications/Winboat.AppImage"
+
 # yay
 alias yeet="yay -Rn"
-alias ls='ls -h --color=auto'
+
+#neovim
 alias nv="nvim"
+alias snv="sudo nvim"
+
+#hyprland
 alias start="start-hyprland"
 
-alias dotter="/home/faraz/dotterfiles/backup.sh"
+#misc
+alias ls='ls -h --color=auto'
+alias dotter="/home/$USER/dotterfiles/backup.sh"
+alias ani="ani-cli"
+
+#git
 alias cmt="git commit -a && git push"
-alias snv="sudo nvim"
+
+#Mount shortcuts
 alias ssd="cd /mnt/SSD"
 alias hdd='cd /mnt/HDD'
 alias mnt="sudo mount"
-alias ani="ani-cli"
 
-fastfetch
+#VPN
 alias vpnu="sudo wg-quick up aloo"
 alias vpnd="sudo wg-quick down aloo"
+
+#PATHS
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-# Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/faraz/.lmstudio/bin"
-# End of LM Studio CLI section
+export PATH=/home/faraz/.opencode/bin:$PATH
+
+fastfetch
 

@@ -6,15 +6,18 @@ Personal Arch Linux setup: a from-scratch installer, a Hyprland dotfiles install
 
 The reason this installer exists even after archinstall(official) is because archinstall always introduced some sort of latency on the system, which made it feel horrendous to use.
 
-Run from the Arch ISO live environment as root:
+Run from the Arch ISO live environment:
 
 ```bash
 curl -o TemuArchInstaller.sh https://raw.githubusercontent.com/deccandewan/dotterfiles/main/TemuArchInstaller.sh
 chmod +x TemuArchInstaller.sh
-./TemuArchInstaller.sh
 ```
 
 Before running, open the script and edit the config block at the top (disk, hostname, username, timezone, locale, partition sizes, whether to install Nvidia drivers). The script will show you the current values and ask if you want to change them interactively before doing anything destructive.
+
+```bash
+./TemuArchInstaller.sh
+```
 
 It partitions and formats the target disk, mounts everything, pacstraps the base system, generates fstab, then copies itself into the new install and `arch-chroot`s in to finish the rest: locale, timezone, hostname, base packages, microcode, root and user accounts, sudoers, systemd-boot, NetworkManager, and Nvidia drivers if requested.
 

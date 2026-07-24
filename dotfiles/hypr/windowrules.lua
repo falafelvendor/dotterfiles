@@ -22,7 +22,7 @@ hl.window_rule({ match = { title = "rofi" }, float = true, no_anim = true })
 hl.window_rule({ match = { title = "wlogout" }, fullscreen = true, float = true })
 hl.window_rule({ match = { title = "kitty" }, float = false})
 hl.window_rule({ match = { title = "mpv" }, float = true})
-
+hl.window_rule({ match = { title = "qemu.*"}, float = true}) 
 hl.window_rule({ match = { class = "download" }, size = {1000, 500} })
 hl.window_rule({ match = { title = "Open File" }, size = {1000, 500} })
 hl.window_rule({ match = { title = "Save File" }, size = {1000, 500} })
