@@ -48,9 +48,9 @@ bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
 #LM studio
-alias ai="/home/faraz/Desktop/LMStudio.AppImage"
-alias win="/home/faraz/Applications/Winboat.AppImage"
-
+alias ai="/home/$USER/Desktop/LMStudio.AppImage"
+alias win="/home/$USER/Applications/Winboat.AppImage"
+alias vm="/home/$USER/Applications/VMCurator.AppImage"
 # yay
 alias yeet="yay -Rn"
 
