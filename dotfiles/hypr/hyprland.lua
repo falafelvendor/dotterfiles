@@ -16,6 +16,13 @@ hl.config({
     },
 })
 
+hl.config({
+    layerrule = {
+        { blur = "wofi" },
+        { ignorezero = "wofi" },
+    },
+})
+
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -51,7 +58,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("[workspace 2 silent] firefox")
     hl.exec_cmd("sh -c 'sleep 1 && hyprsunset'")
     hl.exec_cmd("[workspace 5 silent] /home/faraz/Applications/Winboat.AppImage")
-    hl.exec_cmd(terminal)
+---hl.exec_cmd(terminal)
 end)
 
 hl.on("config.reloaded", function()
@@ -135,7 +142,9 @@ hl.config({
     misc = {
         force_default_wallpaper = 0,
         disable_hyprland_logo   = true,
-    },
+        disable_splash_rendering = true,
+
+},
 })
 
 
