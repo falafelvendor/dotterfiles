@@ -72,3 +72,8 @@ Each script can also be run on its own if you only need part of this; for exampl
 ## Notes
 
 - `dotfinstall.sh` expects the `dotfiles/` folder to sit next to it, and installs pacman packages before copying configs is recommended — `fontconfig` in particular depends on packages being present first.
+
+
+| Screenshot 1 | Screenshot 2 | Screenshot 3 |
+|:---:|:---:|:---:|
+| <img src="https://github.com/user-attachments/assets/48b10455-471f-4f97-946e-c9c22ddc4243" width="270"/> | <img src="https://github.com/user-attachments/assets/f22fe840-d87c-48f7-afd1-b4cb0b4d6015" width="270"/> | <img src="https://github.com/user-attachments/assets/1447b044-b578-441a-8df5-cccda89c0f90" width="270"/> |
